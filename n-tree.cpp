@@ -71,74 +71,8 @@ template <class T> std::shared_ptr<T> NTree<T>::Pop(void) {
 	}
 	return res;
 }
-/*template <class T> std::shared_ptr<T> NTree<T>::Pop(std::shared_ptr<T> ptr) {
-	std::shared_ptr<NTreeNode<T>> ths = this->Root;
-	std::shared_ptr<NTreeNode<T>> prev = NULL;
-	bool found = false;
-	found_pos = 0;
-	std::shared_ptr<NTreeNode<T>> found_ptr = NULL;
-	while (ths != NULL) {
-		for (size_t i = 0; i < ths->ClustersCnt; i++) {
-			if (ths->Clusters[i] == ptr) {
-				found = true;
-				found_pos = i;
-				found_ptr = ths;
-				break;
-			}
-		}
-		if (found) {
-			break;
-		}
-		prev = ths;
-		ths = ths->Child;
-	}
-	if (!found) {
-		return NULL;
-	}
-	while (ths != NULL) {
-		size_t i = 0;
-		if (ths == found_ptr) {
-			i = found_pos;
-		}
-		for(; i < ths->ClustersCnt; i++) {
-			if (i == 0) {
-				if (ths->Parent != NULL) {
-					size_t tmp_pos = ths->Parent->ClustersCnt;
-					ths->Parent->Clusters[tmp_pos - 1] = ths->Clusters[i];
-				}
-			} else {
-				ths->Clusters[i - 1] = ths->Clusters[i];
-			}
-		}
-		prev = ths;
-		ths = ths->Child;
-	}
-	ths = prev;
-	std::shared_ptr<T> res = ths->Clusters[ths->ClustersCnt - 1];
-	ths->ClustersCnt--;
-	if (ths->ClustersCnt <= 0) {
-		ths = ths->Parent;
-		if (ths != NULL) {
-			ths->Child = NULL;
-		} else {
-			this->Root = NULL;
-		}
-	}
-	return ptr;
-}*/
 template <class T> bool NTree<T>::IsEmpty(void) {
 	return this->Root == NULL;
 }
 
-/*template <class T> std::ostream& operator<<(std::ostream& os, const NTree<T>& ntree) {
-	std::shared_ptr<NTreeNode<T>> item = ntree.Root;
-	while (item != NULL) {
-		for (size_t i = 0; i < item->ClustersCnt; i++) {
-			os << item->Clusters[i] << endl;
-		}
-	}
-	return os;
-}*/
-
 template class NTree<std::function<void(void)>>;
-//template std::ostream& operator<<(std::ostream& os, const NTree<std::function<void(void)>> &ntree);
